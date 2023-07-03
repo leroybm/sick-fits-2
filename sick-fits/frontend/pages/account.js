@@ -1,4 +1,4 @@
-export default function AccountsPage() {
+export default function AccountPage() {
   return (
     <div>
       <p>Hey!</p>
