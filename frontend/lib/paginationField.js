@@ -33,7 +33,6 @@ export default function paginationField() {
       for (let i = skip; i < skip + incoming.length; ++i) {
         merged[i] = incoming[i - skip];
       }
-      console.log(merged);
       return merged;
     },
   };
