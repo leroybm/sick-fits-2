@@ -18,24 +18,26 @@ const CartStyles = styled.div`
   display: grid;
   grid-template-rows: auto 1fr auto;
   ${(props) => props.open && `transform: translateX(0);`};
+
   header {
     border-bottom: 5px solid var(--black);
     margin-bottom: 2rem;
     padding-bottom: 2rem;
   }
+
   footer {
     border-top: 10px double var(--black);
     margin-top: 2rem;
     padding-top: 2rem;
-    display: grid;
-    grid-template-columns: auto auto;
     align-items: center;
     font-size: 3rem;
     font-weight: 900;
+
     p {
       margin: 0;
     }
   }
+
   ul {
     margin: 0;
     padding: 0;
