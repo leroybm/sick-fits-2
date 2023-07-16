@@ -14,6 +14,8 @@ import { CartItem } from './schemas/CartItem';
 import { extendGraphqlSchema } from './mutations';
 import { OrderItem } from './schemas/OrderItem';
 import { Order } from './schemas/Order';
+import { Role } from './schemas/Role';
+import { permissionFields, permissionsList } from './schemas/fields';
 
 const databaseURL =
   process.env.DATABASE_URL || 'mongodb://localhost/keystone-sick-fits-tutorial';
@@ -63,6 +65,7 @@ export default withAuth(
       CartItem,
       OrderItem,
       Order,
+      Role,
     }),
     ui: {
       isAccessAllowed: ({ session }) =>
@@ -70,7 +73,7 @@ export default withAuth(
         Boolean(session?.data),
     },
     session: withItemData(statelessSessions(sessionConfig), {
-      User: 'id',
+      User: `id name email role { ${permissionsList.join(' ')} }`,
     }),
   })
 );

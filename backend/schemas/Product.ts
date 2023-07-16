@@ -1,5 +1,6 @@
 import { list } from '@keystone-next/keystone/schema';
 import { integer, relationship, select, text } from '@keystone-next/fields';
+import { isSignedIn, rules } from '../access';
 
 enum StatusValue {
   DRAFT = 'DRAFT',
@@ -8,7 +9,12 @@ enum StatusValue {
 }
 
 export const Product = list({
-  // TODO access:
+  access: {
+    create: isSignedIn,
+    read: rules.canReadProducts,
+    update: rules.canManageProducts,
+    delete: rules.canManageProducts,
+  },
   fields: {
     name: text({ isRequired: true }),
     description: text({
@@ -40,6 +46,11 @@ export const Product = list({
         inlineEdit: { fields: ['image', 'altText'] },
       },
     }),
-    // TODO: Photo
+    user: relationship({
+      ref: 'User.products',
+      defaultValue: ({ context }) => ({
+        connect: { id: context.session.itemId },
+      }),
+    }),
   },
 });
